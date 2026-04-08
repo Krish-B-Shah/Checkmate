@@ -660,6 +660,10 @@ export class TimescaleMonitorsRepository implements IMonitorsRepository {
 		return entity;
 	};
 
+	// Escalation is handled in MongoDB; Timescale is time-series only
+	incrementEscalationCounter = async (_monitorId: string, _teamId: string): Promise<void> => {};
+	resetEscalationCounter = async (_monitorId: string, _teamId: string): Promise<void> => {};
+
 	deleteById = async (monitorId: string, teamId: string): Promise<Monitor> => {
 		// Fetch notifications before delete (FK cascade will remove join rows)
 		const notifs = await this.fetchNotificationIds([monitorId]).then((m) => m.get(monitorId) ?? []);
